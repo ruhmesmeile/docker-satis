@@ -16,9 +16,15 @@ app.use(function (req, res, next) {
 
 
 var buildHook = function (req, res) {
-  exec("/app/scripts/build.sh", function (error, stdout, stderr) {
-    if (stdout) res.end(stdout);
-  });
+  if (req.query.repository) {
+    exec("/app/scripts/build.sh " + decodeURIComponent(req.query.repository), function (error, stdout, stderr) {
+      if (stdout) res.end(stdout);
+    });
+  } else {
+    exec("/app/scripts/build.sh ", function (error, stdout, stderr) {
+      if (stdout) res.end(stdout);
+    });
+  }
 };
 
 app.get('/build', buildHook);
