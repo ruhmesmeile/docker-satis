@@ -4,6 +4,8 @@ MAINTAINER Yannick Pereira-Reis <yannick.pereira.reis@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN sed -i.bak -r 's/(archive|security).ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
 	build-essential \
 	software-properties-common \
