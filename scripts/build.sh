@@ -7,8 +7,6 @@ SATIS_PUBLIC="/satisfy/web/"
 if [ "$#" -lt 1 ]; then
   ${SATIS_BIN} -v -n build /app/config.json ${SATIS_PUBLIC}
 else
-  ${SATIS_BIN} -v -n build --repository-url "$1" /app/config.json ${SATIS_PUBLIC}
+  REPOSITORY=$(echo ${1} | sed "s/ssh:\/\/git@bitbucket-internal\.services\.ruhmesmeile\.local:7999/ssh:\/\/git@bitbucket\.ruhmesmeile\.tools:7999/g")
+  ${SATIS_BIN} -v -n build --repository-url "$REPOSITORY" /app/config.json ${SATIS_PUBLIC}
 fi
-
-
-
