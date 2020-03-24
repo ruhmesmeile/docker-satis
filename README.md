@@ -6,11 +6,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/ypereirareis/docker-satis.svg)]()
 [![ImageLayers Layers](https://img.shields.io/imagelayers/layers/ypereirareis/docker-satis/latest.svg)]()
 
-A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds:
-
-* Automatically (cron every minute)
-* Manually ([http://127.0.0.1:3333/build](http://127.0.0.1:3333/build))
-* Admin ([http://127.0.0.1](http://127.0.0.1))
+A docker image and configuration to run [Satis](https://github.com/composer/satis) very easily in seconds
 
 ## Requirements
 
@@ -18,12 +14,12 @@ A docker image and configuration to run [Satis](https://github.com/composer/sati
 * docker-compose
 * make
 
-## Install
+## Install
 
 ```bash
 cp .env.dist .env
-cp parameters.satisfy.yml.dist parameters.satisfy.yml
-cp satis.json.dist satis.json
+cp config/parameters.satisfy.yml.dist config/parameters.satisfy.yml
+cp config/satis.json.dist config/satis.json
 make start
 ```
 
@@ -31,7 +27,7 @@ make start
 
 ```json
 {
-    "name": "Private REPO",
+    "name": "company/private-packagist",
     "homepage": "https:\/\/satis.domain.tld",
     "output-dir": "web",
     "output-html": true,
@@ -86,35 +82,13 @@ make state
 
 Default credentials are : **admin / foo** 
 
-## Configuration override (if needed)
-
-* Add your own custom `satis.json`
-* Add your own custom `parameters.satisfy.yml` for Satisfy
-
-```
-satis:
-    image: ypereirareis/docker-satis:5.0
-    volumes:
-        - "./parameters.satisfy.yml:/satisfy/app/config/parameters.yml"
-        - "./satis.json:/satisfy/satis.json"
-```
-
-But I advise you to create your own image and Dockerfile:
-
-```shell
-FROM ypereirareis/docker-satis:5.0
-...
-ADD satis.json /satisfy/satis.json
-ADD parameters.satisfy.yml /satisfy/app/config/parameters.yml
-```
-
 ## **Build frequency**
 
 * By default, building script is executed every minute thanks to the docker-compose configuration
 
-```
+```yml
 satis:
-    image: ypereirareis/docker-satis:5.0
+    image: ypereirareis/docker-satis:5.4
     environment:
         CRONTAB_FREQUENCY: "*/1 * * * *"
 ```
@@ -126,9 +100,9 @@ satis:
 
 * The container needs to know the ssh key you added in your private repo (and optionally your SSH configuration).
 
-```
+```yml
 satis:
-    image: ypereirareis/docker-satis:5.0
+    image: ypereirareis/docker-satis:5.4
     volumes:
         - "~/.ssh/id_rsa:/var/tmp/id"
         - "~/.ssh/config:/var/tmp/sshconf"
@@ -136,8 +110,8 @@ satis:
 
 You could add the key into your own image but be careful your ssh key will be in the image (DO NOT SHARE THE IMAGE TO THE WORLD):
 
-```shell
-FROM ypereirareis/docker-satis:5.0
+```Dockerfile
+FROM ypereirareis/docker-satis:5.4
 ...
 ADD SSH_PATH/.ssh/id_rsa:/var/tmp/id
 ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
@@ -147,9 +121,9 @@ ADD SSH_PATH/.ssh/config:/var/tmp/sshconf
 
 **You can now add the ssh port of your server `yourownserver.com:54322` and it supports rsa and dsa keys**
 
-```
+```yml
 satis:
-    image: ypereirareis/docker-satis:5.0
+    image: ypereirareis/docker-satis:5.4
     environment:
         PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com yourownserver.com:54322
 ```
@@ -158,9 +132,9 @@ satis:
 
 Cache should be shared with the host to be reused when you restart the container, for better performance.
 
-```
+```yml
 satis:
-    image: ypereirareis/docker-satis:5.0
+    image: ypereirareis/docker-satis:5.4
     volumes:
         - "/var/tmp/composer:/root/.composer"
 ```

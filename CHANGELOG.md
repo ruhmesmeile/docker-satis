@@ -2,7 +2,26 @@
 
 ## Latest
 
-This is always an image built based on master branch. (and 5.0 tag for now)
+This is always an image built based on master branch. (and 5.4 tag for now)
+
+## v5.4
+
+* Build for latest master branch of satisfy
+
+## v5.3
+
+* Build for latest master branch of satisfy
+
+## v5.2
+
+* USE satisfy:dev-master waiting for a new release and tag
+* Mount config directory instead of single files (updates NOT reflected into containers)
+
+## v5.1
+
+* ADD Unzip
+* Composer FROM docker image
+* make down to remove the stack
 
 ## v5.0
 
