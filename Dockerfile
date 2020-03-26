@@ -97,6 +97,12 @@ ADD supervisor/1-cron.conf /etc/supervisor/conf.d/1-cron.conf
 ADD supervisor/2-nginx.conf /etc/supervisor/conf.d/2-nginx.conf
 ADD supervisor/3-php.conf /etc/supervisor/conf.d/3-php.conf
 
+ADD satisfy-overwrites/Kernel.php /satisfy/src/Kernel.php
+ADD satisfy-overwrites/SatisController.php /satisfy/src/Playbloom/Satisfy/Controller/SatisController.php
+ADD satisfy-overwrites/SatisBuildRunner.php /satisfy/src/Playbloom/Satisfy/Runner/SatisBuildRunner.php
+
+RUN chmod -R 777 /satisfy
+
 WORKDIR /app
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
