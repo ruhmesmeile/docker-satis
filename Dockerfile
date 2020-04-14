@@ -99,7 +99,10 @@ ADD supervisor/3-php.conf /etc/supervisor/conf.d/3-php.conf
 
 ADD satisfy-overwrites/Kernel.php /satisfy/src/Kernel.php
 ADD satisfy-overwrites/SatisController.php /satisfy/src/Playbloom/Satisfy/Controller/SatisController.php
+ADD satisfy-overwrites/services.yml /satisfy/src/Playbloom/Satisfy/Resources/config/services.yml
+ADD satisfy-overwrites/home.html.twig /satisfy/src/Playbloom/Satisfy/Resources/views/home.html.twig
 ADD satisfy-overwrites/SatisBuildRunner.php /satisfy/src/Playbloom/Satisfy/Runner/SatisBuildRunner.php
+ADD satisfy-overwrites/BuildRepoEvent.php /satisfy/src/Playbloom/Satisfy/Event/BuildRepoEvent.php
 
 RUN chmod -R 777 /satisfy
 

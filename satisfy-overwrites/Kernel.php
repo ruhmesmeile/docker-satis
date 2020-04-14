@@ -71,6 +71,10 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel
             ->add('/admin/satis/build', $controllerBase . 'SatisController::buildAction', 'satis_build')
             ->setMethods(['GET']);
         $routes
+            ->add('/admin/satis/buildRepo', $controllerBase . 'SatisController::buildRepoAction', 'satis_build_repo')
+            ->setMethods(['GET'])
+	    ->setRequirement('repository', '.+');
+        $routes
             ->add('/admin/satis/buildRun', $controllerBase . 'SatisController::buildRunAction', 'satis_build_run')
             ->setMethods(['GET']);
         $routes
