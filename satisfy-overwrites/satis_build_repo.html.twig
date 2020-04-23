@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Satis build repository{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+    <pre id="satisOutput"></pre>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+    $(function(){
+        var output = $("#satisOutput");
+
+	$('#form_submit').on('click', function (event) {
+	    event.preventDefault();
+            
+            var basePath = "{{ path('satis_build_run_repo', {'repository': 'test/test'}) }}"
+            var repoPath = basePath.replace('test/test', $('#form_repository').val());
+
+            var outputSource = new EventSource(repoPath);
+            outputSource.onmessage = function(event){
+                if (event.data == '__done__') {
+                    outputSource.close();
+                    return;
+                }
+                output
+                    .append(event.data)
+                    .append("\n");
+            };
+
+            return false;
+	});
+    });
+    </script>
+{% endblock %}
+
