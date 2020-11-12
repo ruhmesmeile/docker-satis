@@ -4,7 +4,7 @@ server {
     root /satisfy/web;
 
     # Make site accessible from http://set-ip-address.xip.io
-    server_name localhost;
+    server_name localhost satis.machine satis.ruhmesmeile.tools;
 
     access_log /var/log/nginx/satisfy-access.log;
     error_log  /var/log/nginx/satisfy-error.log error;
@@ -25,7 +25,7 @@ server {
     # Consider using: "location ~ ^/(index|app|app_dev|config)\.php(/|$) {"
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
         include fastcgi.conf;
