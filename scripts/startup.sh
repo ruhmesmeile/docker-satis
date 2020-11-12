@@ -58,9 +58,6 @@ cp /var/tmp/id "${USER_HOME}/.ssh/id_rsa" && chmod 600 "${USER_HOME}/.ssh/id_rsa
 chown -R www-data:www-data /var/www
 chown -R www-data:www-data /satisfy/satis.json && chmod 777 /satisfy/satis.json
 
-echo " >> Building Satis for the first time"
-scripts/build.sh
-
 if [[ ${CRONTAB_FREQUENCY} == -1 ]]; then
   echo " > No Cron"
   rm -rf /etc/cron.d/satis-cron
@@ -68,5 +65,8 @@ else
   echo " > Crontab frequency set to: ${CRONTAB_FREQUENCY}"
   sed -i "s/${DEFAULT_CRONTAB_FREQUENCY_ESCAPED}/${CRONTAB_FREQUENCY_ESCAPED}/g" /etc/cron.d/satis-cron
 fi
+
+echo " >> Building Satis for the first time"
+scripts/build.sh
 
 exit 0
