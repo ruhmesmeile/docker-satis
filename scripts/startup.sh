@@ -63,6 +63,7 @@ scripts/build.sh
 
 if [[ ${CRONTAB_FREQUENCY} == -1 ]]; then
   echo " > No Cron"
+  rm -rf /etc/cron.d/satis-cron
 else
   echo " > Crontab frequency set to: ${CRONTAB_FREQUENCY}"
   sed -i "s/${DEFAULT_CRONTAB_FREQUENCY_ESCAPED}/${CRONTAB_FREQUENCY_ESCAPED}/g" /etc/cron.d/satis-cron
