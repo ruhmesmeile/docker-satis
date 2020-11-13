@@ -91,7 +91,8 @@ ADD config/ /satisfy/config
 
 RUN chmod 0644 /etc/cron.d/satis-cron \
 	&& touch /var/log/satis-cron.log \
-	&& chmod +x /app/scripts/startup.sh
+	&& chmod +x /app/scripts/startup.sh \
+	&& mkdir -p /satisfy/var/composer
 
 ADD supervisor/0-install.conf /etc/supervisor/conf.d/0-install.conf
 ADD supervisor/1-cron.conf /etc/supervisor/conf.d/1-cron.conf

@@ -39,7 +39,7 @@ class SatisController extends AbstractProtectedController
         return ProcessResponse::createFromOutput($output);
     }
 
-    public function buildRunRepoAction(Request $request): Response
+    public function buildRunRepoAction(SatisBuildRunner $runner, Request $request): Response
     {
         $nginxDnsA = dns_get_record('momcorpfdc.nginx-balancer-http.services.ruhmesmeile.local', DNS_A);
         if ($request->getClientIp() === $nginxDnsA[0]["ip"]) {
@@ -49,7 +49,6 @@ class SatisController extends AbstractProtectedController
         }
 
         $repository = $request->attributes->get('repository');
-        $runner = $this->container->get(SatisBuildRunner::class);
         $output = $runner->runRepo(sprintf('ssh://git@bitbucket.ruhmesmeile.tools:7999/%s.git', $repository));
 
         return ProcessResponse::createFromOutput($output);

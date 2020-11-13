@@ -5,16 +5,19 @@ services:
     build: ./
     container_name: satis
     hostname: satis
+    ports:
+      - "80:80"
     networks:
       - webproxy
     volumes:
       - "/var/tmp/composer:/var/www/.composer"
-      - "~/.ssh/id_rsa:/var/tmp/id"
-      - "./config:/satisfy/config"
+      - "~/.ssh/nopass_rsa:/var/tmp/id"
+      - "./config/parameters.yml:/satisfy/config/parameters.yml"
+      - "./config/satis.json:/satisfy/config/satis.json"
     environment:
-      PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com
-      CRONTAB_FREQUENCY: "*/1 * * * *"
-      VIRTUAL_HOST: ${VHOST}
+      PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com bitbucket.ruhmesmeile.tools:7999
+      CRONTAB_FREQUENCY: "-1"
+      VIRTUAL_HOST: satis.machine
 
 networks:
   webproxy:
