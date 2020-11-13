@@ -4,6 +4,11 @@
 
 {% block content %}
     {{ form(form) }}
+    <div class="alert alert-info" role="alert">
+        <p>Im Eingabefeld muss der Kurz-Name des Repository angegeben werden, <strong>nicht</strong> der Name des Composer-Packages, welches im Repository liegt!<br>
+            Wenn zum Beispiel das Repository hier liegt: <code>ssh://git@bitbucket.ruhmesmeile.tools:7999/rm20/rm-base-instance.git</code>, muss ins Feld der Wert <code>rm20/rm-base-instance</code> eingetragen werden!</p>
+        <p>Das Ergebnis des manuellen Scans kann im folgenden Ausgabe-Feld abgelesen werden!</p>
+    </div>
     <pre id="satisOutput"></pre>
 {% endblock %}
 
