@@ -18,6 +18,9 @@ services:
       PRIVATE_REPO_DOMAIN_LIST: bitbucket.org gitlab.com github.com bitbucket.ruhmesmeile.tools:7999
       CRONTAB_FREQUENCY: "-1"
       VIRTUAL_HOST: satis.machine
+      MATRIX_HOST: INSERT
+      MATRIX_USERNAME: INSERT
+      MATRIX_PASSWORD: INSERT
 
 networks:
   webproxy:

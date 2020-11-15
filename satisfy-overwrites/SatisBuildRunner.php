@@ -89,6 +89,19 @@ class SatisBuildRunner
             yield $process->getExitCodeText();
         } finally {
             $this->lock->release();
+
+            $urlParts = explode("/", $repositoryUrl);
+            $projectKey = $urlParts[3];
+            $host = getenv('MATRIX_HOST');
+            $username =  getenv('MATRIX_USERNAME');
+            $password = getenv('MATRIX_PASSWORD');
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, "https://" . $host . "/cache/clear/" . $projectKey);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+            curl_exec($curl);
+            curl_close($curl);
         }
     }
 
