@@ -59,6 +59,7 @@ class SatisController extends AbstractProtectedController
         $ip = $request->getClientIp();
         $trusted = [
             '10.1.55.0/24',
+            '10.1.38.0/24',
         ];
 
         if (!IpUtils::checkIp($ip, $trusted)) {
